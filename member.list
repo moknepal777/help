@@ -1,0 +1,27 @@
+document.getElementById("addMemberLoan").addEventListener("click", function () {
+    const memberName = document.getElementById("memberName").value.trim();
+    const loanAmount = parseFloat(document.getElementById("loanAmount").value);
+    const interestRate = parseFloat(document.getElementById("interestRate").value);
+    const loanTerm = parseInt(document.getElementById("loanTerm").value);
+
+    if (!memberName || isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTerm)) {
+        alert("कृपया सबै विवरणहरू सही ढङ्गले भर्नुहोस्।");
+        return;
+    }
+
+    const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTerm);
+
+    const loanData = {
+        memberName,
+        loanAmount,
+        interestRate,
+        loanTerm,
+        monthlyPayment: monthlyPayment.toFixed(2),
+    };
+
+    memberLoans.push(loanData); // Add to array
+    console.log("New member added:", loanData);
+
+    renderTable(); // Update the table
+    clearInputs(); // Clear the form fields
+});
